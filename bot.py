@@ -8,6 +8,7 @@ def home():
 if __name__ == '__main__':
     import threading
     threading.Thread(target=app.run).start()
+    app.run(host='0.0.0.0', port=10000)  # Указываем порт здесь
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
 from aiogram.types import (
