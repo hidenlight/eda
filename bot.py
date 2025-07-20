@@ -1,14 +1,19 @@
 from flask import Flask
-app = Flask(__name__)
+from threading import Thread
+import os
 
-@app.route('/')
+# Создаем Flask-сервер (заглушку)
+flask_app = Flask(__name__)
+
+@flask_app.route('/')
 def home():
-    return "Bot is alive"
+    return "Фласк работает! Бот активен."
 
-if __name__ == '__main__':
-    import threading
-    threading.Thread(target=app.run).start()
-    app.run(host='0.0.0.0', port=10000)  # Указываем порт здесь
+def run_flask():
+    flask_app.run(host='0.0.0.0', port=10000)
+
+# Запускаем Flask в отдельном потоке
+Thread(target=run_flask).start()
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
 from aiogram.types import (
@@ -81,10 +86,8 @@ async def show_details(message: types.Message):
     )
 
 
-# ---- Запуск ----
-async def main():
-    await dp.start_polling(bot)
-
-
-if __name__ == "__main__":
-    asyncio.run(main())
+if __name__ == '__main__':
+    # Уберите старый запуск бота (если был)
+    # Заменяем на этот вариант:
+    import asyncio
+    asyncio.run(dp.start_polling(bot))
