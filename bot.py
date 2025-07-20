@@ -1,3 +1,13 @@
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Bot is alive"
+
+if __name__ == '__main__':
+    import threading
+    threading.Thread(target=app.run).start()
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
 from aiogram.types import (
